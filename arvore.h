@@ -11,10 +11,6 @@ typedef struct character{
 	int health; /*Saúde (inteiro de 0-100) */
 }Character;
 
-typedef struct {
-
-	char *cu, *buceta;
-}auxiliar;
 
 typedef struct node{
 
@@ -38,8 +34,12 @@ typedef struct lista{
 
 Character* SalvarPersonagens();
 
-
 Character* character_create(char* _name, char* _house, int _agility, int _strength, int _intelligence, int _health);
+t_node* tree_create();
+t_lista* CriaLista();
+void InserirInicio(Character *vetor, t_lista* lista);
+t_lista* ListaPersonagem(Character *vetor);
+void Printar_Lista(t_lista* lista);
 
 
 #endif
