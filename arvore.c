@@ -47,13 +47,13 @@ Character* SalvarPersonagens(){
 			break;
 			case 4:
         		vetorPersonagens[i].strength = atoi(palavra);
-        	break;
-        	case 5:
-        		vetorPersonagens[i].intelligence = atoi(palavra);
-        	break;
-        	case 6:
-        		vetorPersonagens[i++].health = atoi(palavra);
-        	break;			
+        		break;
+        		case 5:
+        			vetorPersonagens[i].intelligence = atoi(palavra);
+        		break;
+        		case 6:
+        			vetorPersonagens[i++].health = atoi(palavra);
+        		break;			
 		}
 		idx++;
 		if(idx == 7) /*quando termina a linha, idx = 7, entao tem que retornar ele pra 1, para armazenar todos os atributos de cada linha*/
@@ -136,7 +136,8 @@ void InserirInicio(Character *vetor, t_lista* lista){
             }
             rodados[j] = random;
             j++;
-        }else{
+        }
+        else{
             x--;
         }
     }
