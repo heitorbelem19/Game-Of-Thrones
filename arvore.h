@@ -37,9 +37,11 @@ Character* SalvarPersonagens();
 Character* character_create(char* _name, char* _house, int _agility, int _strength, int _intelligence, int _health);
 t_node* tree_create();
 t_lista* CriaLista();
+int verifica(int vetor[],int valor);
 void InserirInicio(Character *vetor, t_lista* lista);
 t_lista* ListaPersonagem(Character *vetor);
 void Printar_Lista(t_lista* lista);
+
 
 
 
