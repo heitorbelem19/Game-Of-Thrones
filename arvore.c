@@ -3,6 +3,48 @@
 #include <string.h>
 #include <time.h>
 #include "arvore.h"
+#ifdef _WIN32
+    #define CLEAR "cls"
+#else
+    #define CLEAR "clear"
+#endif
+
+void menu(){
+ 
+    int op;
+ 
+    system(CLEAR);
+    printf("################################################\n");
+    printf("################################################\n");
+    printf("##    _____                               __  ##\n");
+    printf("##   / ____|                             / _| ##\n");
+    printf("##  | |  __  __ _ _ __ ____  ___    ___ | |_  ##\n");
+    printf("##  | | |_ |/ _` | '_ ` _  \\/ _ \\  / _ \\|  _| ##\n");
+    printf("##  | |__| | (_| | | | | | |  __/  |(_) | |   ##\n");
+    printf("##  \\______|\\__,_|_| |_| |_|\\___|  \\___/|_|   ##\n");
+    printf("##  _______ _                                 ##\n");
+    printf("## |__   __| |                                ##\n");
+    printf("##    | |  | |__  _ __ ____  _ ___  ___  ___  ##\n");
+    printf("##    | |  | '_ \\| '__/  _ \\| '_  \\/ _ \\/ __| ##\n");
+    printf("##    | |  | | | | |  | (_) | | | |  __/\\__ \\ ##\n");
+    printf("##    |_|  |_| |_| |  \\____/|_| |_|\\___||___/ ##\n");
+    printf("##                                            ##\n");
+    printf("################################################\n");
+    printf("################################################\n");
+    printf("              By: Karan & Heitor                \n");
+    printf("\n");
+
+    printf("[1] Start New Game\n");
+    printf("[2] Quit\n");
+    scanf("%d" , &op);
+    switch(op){
+        case 1:
+            /*jogo();
+            menu();*/
+        default:
+            exit(-1);
+    }
+}
 
 Character* SalvarPersonagens(){
 	
@@ -47,13 +89,13 @@ Character* SalvarPersonagens(){
 			break;
 			case 4:
         		vetorPersonagens[i].strength = atoi(palavra);
-        		break;
-        		case 5:
-        			vetorPersonagens[i].intelligence = atoi(palavra);
-        		break;
-        		case 6:
-        			vetorPersonagens[i++].health = atoi(palavra);
-        		break;			
+        	break;
+        	case 5:
+        		vetorPersonagens[i].intelligence = atoi(palavra);
+        	break;
+        	case 6:
+        		vetorPersonagens[i++].health = atoi(palavra);
+        	break;			
 		}
 		idx++;
 		if(idx == 7) /*quando termina a linha, idx = 7, entao tem que retornar ele pra 1, para armazenar todos os atributos de cada linha*/
@@ -79,15 +121,6 @@ Character* character_create(char* _name, char* _house, int _agility, int _streng
 	return new_character; /*retorna o endereço do personagem criado*/
 }
 
-t_node* tree_create(){
-
-	t_node *tree = (t_node*)malloc(sizeof(t_node));
-	tree->character = NULL;
-	tree->left = NULL;
-	tree->right = NULL;
-
-	return tree;
-}
 
 t_lista* CriaLista(){
 	
@@ -143,15 +176,40 @@ void InserirInicio(Character *vetor, t_lista* lista){
     }
 }
 
-void Printar_Lista(t_lista* lista){
-	
-	t_elemento* ptr = lista->inicio;
-	if(lista->inicio == NULL){
-		printf("LISTA VAZIA!\n");
-		return;
-	}
-	while(ptr != NULL){
-		printf("  %s, %s, %d, %d, %d, %d\n",ptr->character->name, ptr->character->house, ptr->character->agility, ptr->character->strength, ptr->character->intelligence, ptr->character->health);
-		ptr = ptr->proximo;
+void Printar_Personagens(t_lista *lista){
+
+	int i, random;
+	t_elemento *ptr = (t_elemento *)malloc(sizeof(t_elemento));
+	ptr = lista->inicio;
+	srand(time(NULL));/*inicializa a função randômica*/
+	for(i = 0; i < 16; i++){
+		random = (rand() % 4) + 1;
+		printf("Personagem %d:\n",(i+1));
+		switch(random){
+			case 1:
+				printf("Agility: %d  Strength: ??  Intelligence: ??  Health: ??\n\n",ptr->character->agility);
+			break;
+			case 2:
+				printf("Agility: ??  Strength: %d  Intelligence: ??  Health: ??\n\n",ptr->character->strength);
+			break;
+			case 3:
+				printf("Agility: ??  Strength: ??  Intelligence: %d  Health: ??\n\n",ptr->character->intelligence);
+			break;
+			case 4:
+				printf("Agility: ??  Strength: ??  Intelligence: ??  Health: %d\n\n",ptr->character->health);
+			break;
+		}
+	ptr = ptr->proximo;
 	}
 }
+
+t_node* tree_create(){
+
+	t_node *tree = (t_node*)malloc(sizeof(t_node));
+	tree->character = NULL;
+	tree->left = NULL;
+	tree->right = NULL;
+
+	return tree;
+}
+
