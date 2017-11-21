@@ -42,4 +42,5 @@ t_lista* ListaPersonagem(Character *vetor);
 void Printar_Lista(t_lista* lista);
 
 
+
 #endif
