@@ -11,14 +11,6 @@ typedef struct character{
 	int health; /*Saúde (inteiro de 0-100) */
 }Character;
 
-
-typedef struct node{
-
-	Character *character; /*Ponteiro para a struct que guarda os atributos dos personagens*/
-	struct no *left; /*Ponteiro para o filho da esquerda*/
-	struct no *right; /*Ponteiro para o filho da direita*/
-}t_node;
-
 typedef struct elemento{
 	
 	Character *character; /*Ponteiro para a struct que armazena os atributos dos personagens*/
@@ -32,17 +24,24 @@ typedef struct lista{
 	t_elemento *fim; /*Ponteiro para o último elemento da lista*/
 }t_lista;
 
+typedef struct node{
+
+	Character *character; /*Ponteiro para a struct que guarda os atributos dos personagens*/
+	struct no *left; /*Ponteiro para o filho da esquerda*/
+	struct no *right; /*Ponteiro para o filho da direita*/
+}t_node;
+
+
+
+void menu();
 Character* SalvarPersonagens();
 
 Character* character_create(char* _name, char* _house, int _agility, int _strength, int _intelligence, int _health);
-t_node* tree_create();
 t_lista* CriaLista();
 int verifica(int vetor[],int valor);
 void InserirInicio(Character *vetor, t_lista* lista);
-t_lista* ListaPersonagem(Character *vetor);
-void Printar_Lista(t_lista* lista);
-
-
+void Printar_Personagens(t_lista *lista);
+t_node* tree_create();
 
 
 #endif
