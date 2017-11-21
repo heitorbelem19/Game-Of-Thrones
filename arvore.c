@@ -100,45 +100,42 @@ t_lista* CriaLista(){
 	return lista;
 }
 
-
 void InserirInicio(Character *vetor, t_lista* lista){
 	
-	t_elemento *new_element = (t_elemento *)malloc(sizeof(t_elemento));
-	new_element->proximo = NULL;
-	new_element->anterior = NULL;
-	new_element->character->name = vetor->name;
-	new_element->character->house = vetor->house;
-	new_element->character->agility = vetor->agility;
-	new_element->character->strength = vetor->strength;
-	new_element->character->intelligence = vetor->intelligence;
-	new_element->character->health = vetor->health;
-	 
-	if(lista->inicio == NULL){
-		lista->inicio = new_element;
-		lista->fim = new_element;
+	int v[16];
+	int random;
+	srand(time(NULL));
+	
+
+	for(int x = 0; x < 16; x++){
+
+		v[x] = (rand() % 16);
+		random = v[x];
+
+		t_elemento *new_element = (t_elemento *)malloc(sizeof(t_elemento));
+		new_element->proximo = NULL;
+		new_element->anterior = NULL;
+		new_element->character = (Character *)malloc(sizeof(Character));
+		new_element->character->name = vetor[random].name;
+		new_element->character->house = vetor[random].house;
+		new_element->character->agility = vetor[random].agility;
+		new_element->character->strength = vetor[random].strength;
+		new_element->character->intelligence = vetor[random].intelligence;
+		new_element->character->health = vetor[random].health;
+
+		if(lista->inicio == NULL){
+			lista->inicio = new_element;
+			lista->fim = new_element;
+		}
+		else{
+			lista->inicio->anterior = new_element;
+			new_element->proximo = lista->inicio;
+			lista->inicio = new_element;
+		}
 	}
-	else{
-		lista->inicio->anterior = new_element;
-		new_element->proximo = lista->inicio;
-		lista->inicio = new_element;
-	}
+	
 }
 
-t_lista* ListaPersonagem(Character *vetor){
-
-	t_lista *ListaCharacter = CriaLista();
-	int i,x;
-
-	for(i=0;i<16;i++){
-		srand((unsigned)time(NULL));
-		x = rand() % 16;
-		Character *novo;
-		novo = character_create(vetor[x].name, vetor[x].house, vetor[x].agility, vetor[x].strength, vetor[x].intelligence, vetor[x].health);
-		InserirInicio(novo, ListaCharacter);
-	}
-
-	return ListaCharacter;
-}
 
 void Printar_Lista(t_lista* lista){
 	t_elemento* ptr = lista->inicio;
