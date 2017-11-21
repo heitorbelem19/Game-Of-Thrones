@@ -11,7 +11,6 @@ Character* SalvarPersonagens(){
 		printf("Impossivel abrir o arquivo\n");
 		exit(1);
 	}
-
 	char *nome = (char *)malloc(sizeof(char)*100);
 	char *casa = (char *)malloc(sizeof(char)*100);
 	int agilidade,forca,inteligencia,saude;
@@ -61,7 +60,6 @@ Character* SalvarPersonagens(){
 			idx = 1; 
 	   	palavra = strtok (NULL,quebra);
 	}
-
 	fclose(arquivo);
 	return vetorPersonagens;
 }
@@ -100,54 +98,59 @@ t_lista* CriaLista(){
 	return lista;
 }
 
+int verifica(int vetor[],int valor){
+    
+    int i;
+    for(i = 0; i < 16; i++){
+        if(vetor[i] == valor){/*Compara os valores obtidos aleatoriamente para ver se não possui nenhum valor repetido,se nao estiver repetido, retorna 1*/
+            return 0;
+        }
+    }
+    return 1;
+}
+ 
 void InserirInicio(Character *vetor, t_lista* lista){
-	
-	int v[16];
-	int random;
-	srand(time(NULL));
-	
-
-	for(int x = 0; x < 16; x++){
-
-		v[x] = (rand() % 16);
-		random = v[x];
-
-		t_elemento *new_element = (t_elemento *)malloc(sizeof(t_elemento));
-		new_element->proximo = NULL;
-		new_element->anterior = NULL;
-		new_element->character = (Character *)malloc(sizeof(Character));
-		new_element->character->name = vetor[random].name;
-		new_element->character->house = vetor[random].house;
-		new_element->character->agility = vetor[random].agility;
-		new_element->character->strength = vetor[random].strength;
-		new_element->character->intelligence = vetor[random].intelligence;
-		new_element->character->health = vetor[random].health;
-
-		if(lista->inicio == NULL){
-			lista->inicio = new_element;
-			lista->fim = new_element;
-		}
-		else{
-			lista->inicio->anterior = new_element;
-			new_element->proximo = lista->inicio;
-			lista->inicio = new_element;
-		}
-	}
-	
+    
+    int v[16];/*vetor que vai armazenar os valores aleatorios*/
+    int random;/*indice aleatorio*/
+    srand(time(NULL));/*inicializa a função randômica*/
+    int rodados[16];
+    int j = 0, x;
+    for(x = 0; x < 16; x++){
+        v[x] = (rand() % 20);/*obtém valores de 0 a 19*/
+        if(verifica(rodados, v[x]) == 1){
+            random = v[x];
+            t_elemento *new_element = (t_elemento *)malloc(sizeof(t_elemento));
+            new_element->proximo = NULL;
+            new_element->anterior = NULL;
+            new_element->character = (Character *)malloc(sizeof(Character));
+            new_element->character = character_create(vetor[random].name,vetor[random].house,vetor[random].agility,vetor[random].strength,vetor[random].intelligence,vetor[random].health);
+            if(lista->inicio == NULL){
+                lista->inicio = new_element;
+                lista->fim = new_element;
+            }
+            else{
+                lista->inicio->anterior = new_element;
+                new_element->proximo = lista->inicio;
+                lista->inicio = new_element;
+            }
+            rodados[j] = random;
+            j++;
+        }else{
+            x--;
+        }
+    }
 }
 
-
 void Printar_Lista(t_lista* lista){
+	
 	t_elemento* ptr = lista->inicio;
 	if(lista->inicio == NULL){
 		printf("LISTA VAZIA!\n");
 		return;
 	}
 	while(ptr != NULL){
-		printf("%s, %s, %d, %d, %d, %d\n",ptr->character->name, ptr->character->house, ptr->character->agility, ptr->character->strength, ptr->character->intelligence, ptr->character->health);
+		printf("  %s, %s, %d, %d, %d, %d\n",ptr->character->name, ptr->character->house, ptr->character->agility, ptr->character->strength, ptr->character->intelligence, ptr->character->health);
 		ptr = ptr->proximo;
 	}
 }
-
-
-
