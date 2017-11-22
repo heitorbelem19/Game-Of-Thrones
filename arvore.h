@@ -27,21 +27,25 @@ typedef struct lista{
 typedef struct node{
 
 	Character *character; /*Ponteiro para a struct que guarda os atributos dos personagens*/
-	struct no *left; /*Ponteiro para o filho da esquerda*/
-	struct no *right; /*Ponteiro para o filho da direita*/
+	struct node *left; /*Ponteiro para o filho da esquerda*/
+	struct node *right; /*Ponteiro para o filho da direita*/
 }t_node;
 
 
 
 void menu();
+void jogo();
+
 Character* SalvarPersonagens();
 
 Character* character_create(char* _name, char* _house, int _agility, int _strength, int _intelligence, int _health);
 t_lista* CriaLista();
-int verifica(int vetor[],int valor);
+int Verifica(int vetor[],int valor);
 void InserirInicio(Character *vetor, t_lista* lista);
 void Printar_Personagens(t_lista *lista);
+
 t_node* tree_create();
+t_node* Insere_No(t_node* root);
 
 
 #endif
