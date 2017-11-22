@@ -39,8 +39,8 @@ void menu(){
     scanf("%d" , &op);
     switch(op){
         case 1:
-            /*jogo();
-            menu();*/
+            jogo();
+            menu();
         default:
             exit(-1);
     }
@@ -131,11 +131,11 @@ t_lista* CriaLista(){
 	return lista;
 }
 
-int verifica(int vetor[],int valor){
-    
+int Verifica(int vetor[],int valor){
+    /*Essa função compara os valores obtidos aleatoriamente para ver se não possui nenhum valor repetido,se não possuir, retorna 1*/
     int i;
     for(i = 0; i < 16; i++){
-        if(vetor[i] == valor){/*Compara os valores obtidos aleatoriamente para ver se não possui nenhum valor repetido,se nao estiver repetido, retorna 1*/
+        if(vetor[i] == valor){
             return 0;
         }
     }
@@ -144,14 +144,14 @@ int verifica(int vetor[],int valor){
  
 void InserirInicio(Character *vetor, t_lista* lista){
     
-    int v[16];/*vetor que vai armazenar os valores aleatorios*/
-    int random;/*indice aleatorio*/
+    int v[16];/*vetor que vai armazenar os valores aleatórios*/
+    int random;/*índice aleatorio*/
     srand(time(NULL));/*inicializa a função randômica*/
     int rodados[16];
     int j = 0, x;
     for(x = 0; x < 16; x++){
         v[x] = (rand() % 20);/*obtém valores de 0 a 19*/
-        if(verifica(rodados, v[x]) == 1){
+        if(Verifica(rodados, v[x]) == 1){
             random = v[x];
             t_elemento *new_element = (t_elemento *)malloc(sizeof(t_elemento));
             new_element->proximo = NULL;
@@ -204,12 +204,34 @@ void Printar_Personagens(t_lista *lista){
 }
 
 t_node* tree_create(){
+	/*Essa função cria o Nó raiz da árvore, setando os ponteiros Character, direita e esquerda para NULL*/
+	
+	t_node *tree_root = (t_node *)malloc(sizeof(t_node));
+	tree_root->character = NULL;
+	tree_root->left = NULL;
+	tree_root->right = NULL;
 
-	t_node *tree = (t_node*)malloc(sizeof(t_node));
-	tree->character = NULL;
-	tree->left = NULL;
-	tree->right = NULL;
-
-	return tree;
+	return tree_root;
 }
 
+t_node* Insere_No(t_node* root){
+
+	if(root == NULL){
+		return tree_create();
+	}
+	else{
+		Insere_No(root->right);
+		Insere_No(root->left);
+		return root;
+	}
+}
+
+void jogo(){
+
+	Character *Personagens = SalvarPersonagens();
+	int x = 0;
+	t_lista *ListaCharacter = CriaLista(); 
+	InserirInicio(Personagens,ListaCharacter);
+	Printar_Personagens(ListaCharacter);
+
+}
