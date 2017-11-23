@@ -31,8 +31,6 @@ typedef struct node{
 	struct node *right; /*Ponteiro para o filho da direita*/
 }t_node;
 
-
-
 void menu();
 void jogo();
 
@@ -46,6 +44,8 @@ void Printar_Personagens(t_lista *lista);
 
 t_node* tree_create();
 t_node* Insere_No(t_node* root);
-
+void Character_Transfer(t_node* root, t_lista *lista);
+int height(t_node* h);
+void  pre_order(t_node* root);
 
 #endif
