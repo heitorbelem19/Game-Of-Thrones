@@ -13,19 +13,16 @@ int main(){
 	
 	Character *Personagens = SalvarPersonagens();
 	int x = 0;
-	int altura;
 	t_node* arvore;
 	t_lista *ListaCharacter = CriaLista();
 	InserirInicio(Personagens,ListaCharacter);
 	Printar_Personagens(ListaCharacter);
-	arvore = tree_create();
 	arvore = Insere_No(arvore);
 	arvore = Insere_No(arvore);
 	arvore = Insere_No(arvore);
 	arvore = Insere_No(arvore);
-	altura = height(arvore);
-	printf("%d\n",altura);
-	pos_order(arvore,ListaCharacter);
-	pre_order(arvore);
+	arvore = Insere_No(arvore);
+	Character_Transfer(arvore,ListaCharacter);
+	tree_print_preorder(arvore);
     return 0;
 }
