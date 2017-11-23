@@ -39,8 +39,7 @@ void menu(){
     scanf("%d" , &op);
     switch(op){
         case 1:
-            jogo();
-            menu();
+            
         default:
             exit(-1);
     }
@@ -120,7 +119,6 @@ Character* character_create(char* _name, char* _house, int _agility, int _streng
 	
 	return new_character; /*retorna o endereço do personagem criado*/
 }
-
 
 t_lista* CriaLista(){
 	
@@ -204,34 +202,44 @@ void Printar_Personagens(t_lista *lista){
 }
 
 t_node* tree_create(){
-	/*Essa função cria o Nó raiz da árvore, setando os ponteiros Character, direita e esquerda para NULL*/
-	
-	t_node *tree_root = (t_node *)malloc(sizeof(t_node));
-	tree_root->character = NULL;
-	tree_root->left = NULL;
-	tree_root->right = NULL;
 
-	return tree_root;
+	t_node* root = (t_node *)malloc(sizeof(t_node));
+	root->character = NULL;
+	root->right = NULL;
+	root->left = NULL;
+
+	return root;
 }
 
 t_node* Insere_No(t_node* root){
-
 	if(root == NULL){
 		return tree_create();
 	}
 	else{
-		Insere_No(root->right);
-		Insere_No(root->left);
-		return root;
+		root->left = Insere_No(root->left);
+		root->right = Insere_No(root->right);
 	}
+	return root;
 }
 
-void jogo(){
+void Character_Transfer(t_node* root, t_lista *lista){
+   	
+   	t_elemento *aux = lista->inicio;
+    if(root != NULL){
+        Character_Transfer(root->left,lista);       
+        Character_Transfer(root->right,lista);
+		if(root->left == NULL || root->right == NULL){
+		   	root->character = aux->character;    
+	    }
+    }
+}
 
-	Character *Personagens = SalvarPersonagens();
-	int x = 0;
-	t_lista *ListaCharacter = CriaLista(); 
-	InserirInicio(Personagens,ListaCharacter);
-	Printar_Personagens(ListaCharacter);
-
+void tree_print_preorder(t_node* root){
+    
+    if(root != NULL){
+        if(root->left == NULL || root->right == NULL)
+        	printf("%s\n", root->character->name);
+        tree_print_preorder(root->left);
+        tree_print_preorder(root->right);
+    }
 }
