@@ -45,7 +45,6 @@ void Printar_Personagens(t_lista *lista);
 t_node* tree_create();
 t_node* Insere_No(t_node* root);
 void Character_Transfer(t_node* root, t_lista *lista);
-int height(t_node* h);
-void  pre_order(t_node* root);
+void  tree_print_preorder(t_node* root);
 
 #endif
