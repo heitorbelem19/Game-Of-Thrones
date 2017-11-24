@@ -46,5 +46,6 @@ t_node* tree_create();
 t_node* Insere_No(t_node* root);
 void Character_Transfer(t_node* root, t_lista *lista);
 void  tree_print_preorder(t_node* root);
+Character* BuscaElemento(int posicao, t_lista *lista);
 
 #endif
