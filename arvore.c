@@ -130,6 +130,7 @@ t_lista* CriaLista(){
 }
 
 int Verifica(int vetor[],int valor){
+    
     /*Essa função compara os valores obtidos aleatoriamente para ver se não possui nenhum valor repetido,se não possuir, retorna 1*/
     int i;
     for(i = 0; i < 16; i++){
@@ -154,7 +155,6 @@ void InserirInicio(Character *vetor, t_lista* lista){
             t_elemento *new_element = (t_elemento *)malloc(sizeof(t_elemento));
             new_element->proximo = NULL;
             new_element->anterior = NULL;
-            new_element->character = (Character *)malloc(sizeof(Character));
             new_element->character = character_create(vetor[random].name,vetor[random].house,vetor[random].agility,vetor[random].strength,vetor[random].intelligence,vetor[random].health);
             if(lista->inicio == NULL){
                 lista->inicio = new_element;
@@ -212,6 +212,7 @@ t_node* tree_create(){
 }
 
 t_node* Insere_No(t_node* root){
+	
 	if(root == NULL){
 		return tree_create();
 	}
@@ -222,25 +223,23 @@ t_node* Insere_No(t_node* root){
 	return root;
 }
 
+int i = 0;
 void Character_Transfer(t_node* root, t_lista *lista){
    	
-   	int i;
     if(root != NULL){
         Character_Transfer(root->left,lista);       
         Character_Transfer(root->right,lista);
 		if(root->left == NULL || root->right == NULL){
-		   	root->character = BuscaElemento(i,lista);    
-	    	i++;
+		   	root->character = BuscaElemento(i,lista);
+		   	i++;    
 	    }
-    i = 0;
-    }
-    
+	}
 }
 
 Character* BuscaElemento(int posicao, t_lista *lista){
 
 	t_elemento *aux = lista->inicio ;
-	for(int i = 0; i < posicao; i++){
+	for(int j = 0; j < posicao; j++){
 		aux = aux->proximo;
 	}
 	return aux->character;
