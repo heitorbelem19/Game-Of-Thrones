@@ -224,14 +224,26 @@ t_node* Insere_No(t_node* root){
 
 void Character_Transfer(t_node* root, t_lista *lista){
    	
-   	t_elemento *aux = lista->inicio;
+   	int i;
     if(root != NULL){
         Character_Transfer(root->left,lista);       
         Character_Transfer(root->right,lista);
 		if(root->left == NULL || root->right == NULL){
-		   	root->character = aux->character;    
+		   	root->character = BuscaElemento(i,lista);    
+	    	i++;
 	    }
+    i = 0;
     }
+    
+}
+
+Character* BuscaElemento(int posicao, t_lista *lista){
+
+	t_elemento *aux = lista->inicio ;
+	for(int i = 0; i < posicao; i++){
+		aux = aux->proximo;
+	}
+	return aux->character;
 }
 
 void tree_print_preorder(t_node* root){
