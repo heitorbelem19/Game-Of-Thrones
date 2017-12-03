@@ -22,7 +22,9 @@ int main(){
 	arvore = Insere_No(arvore);
 	arvore = Insere_No(arvore);
 	arvore = Insere_No(arvore);
-	Character_Transfer(arvore,ListaCharacter);
+	Character_Transfer(arvore,ListaCharacter,1);
 	tree_print_preorder(arvore);
+	
+
     return 0;
 }
