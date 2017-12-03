@@ -255,3 +255,35 @@ void tree_print_preorder(t_node* root){
     }
 }
 
+Character* fight(Character* fighter_one, Character* fighter_two, int atribute){
+
+	Character *vencedor;
+
+	if(atribute == 1){
+		if(fighter_one->agility >= fighter_two->agility)
+			vencedor = fighter_one;
+		else
+			vencedor = fighter_two;
+	}
+	else if(atribute == 2){
+		if(fighter_one->strength >= fighter_two->strength)
+			vencedor = fighter_one;
+		else
+			vencedor = fighter_two;
+	}
+	else if(atribute == 3){
+		if(fighter_one->intelligence >= fighter_two->intelligence)
+			vencedor = fighter_one;
+		else
+			vencedor = fighter_two;
+	}
+	else if(atribute == 4){
+		if(fighter_one->health >= fighter_two->health)
+			vencedor = fighter_one;
+		else
+			vencedor = figther_two;
+	}
+
+	return vencedor;
+}
+
