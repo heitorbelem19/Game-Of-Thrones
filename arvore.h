@@ -31,21 +31,26 @@ typedef struct node{
 	struct node *right; /*Ponteiro para o filho da direita*/
 }t_node;
 
-void menu();
-void jogo();
+void menu();/*Função que apresenta o menu inicial do jogo*/
+void jogo();/*Função que executa todo o jogo*/
 
-Character* SalvarPersonagens();
+Character* SalvarPersonagens();/*Função que lê o arquivo e armazena em um vetor do tipo Character*/
 
-Character* character_create(char* _name, char* _house, int _agility, int _strength, int _intelligence, int _health);
-t_lista* CriaLista();
-int Verifica(int vetor[],int valor);
-void InserirInicio(Character *vetor, t_lista* lista);
-void Printar_Personagens(t_lista *lista);
+Character* character_create(char* _name, char* _house, int _agility, int _strength, int _intelligence, int _health); /*Aloca espaço na memoria para um novo personagem e seta seus atributos*/
+t_lista* CriaLista();/*Cria lista vazia*/
+int Verifica(int vetor[],int valor); /*verifica se o indice randomico do vetor ja foi selecionado alguma vez*/
+void InserirInicio(Character *vetor, t_lista* lista); /*insere um novo personagem no inicio da lista duplamente encadeada, aleatoriamente do arquivo*/
+void Printar_Personagens(t_lista *lista); /*Printa os personagens escondendo os atributos e os seus respectivos nomes*/
 
-t_node* tree_create();
-t_node* Insere_No(t_node* root);
-void Character_Transfer(t_node* root, t_lista *lista);
-void  tree_print_preorder(t_node* root);
-Character* BuscaElemento(int posicao, t_lista *lista);
+t_node* tree_create(); /*Cria um no raiz, apontando seus ponteiros esquerda, direita e character para NULL*/
+t_node* Insere_No(t_node* root); /*insere um novo Nó na árvore*/
+void Character_Transfer(t_node* root, t_lista *lista, int i); /*Faz os nós folhas apontarem para os personagens da lista duplamente encadeada*/
+void  tree_print_preorder(t_node* root); /*printa a árvore utilizando o algoritmo de pre-ordem*/
+Character* BuscaPersonagem(int posicao, t_lista *lista); /*busca o elemento na lista duplamente encadeada para que a folha da arvore possa apontar para esse personagem tambem*/
+Character* fight(Character* fighter_one, Character* fighter_two, int atribute);
+
+void character_free(Character* character);
+void tree_free(t_node* tree);
+
 
 #endif
