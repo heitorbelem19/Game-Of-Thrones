@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -77,22 +78,22 @@ Character* SalvarPersonagens(){
 				palavra[l] = palavra[l+1];
 		}
 		switch(idx){
-			case 1:
+			case 1:/*preenche campo "name" da struct Character*/
 				vetorPersonagens[i].name = palavra;
 			break;
-			case 2:
+			case 2:/*preenche campo "house" da struct Character*/
 				vetorPersonagens[i].house = palavra;
 			break;
-			case 3:
+			case 3:/*preenche campo "agility" da struct Character*/
 				vetorPersonagens[i].agility = atoi(palavra);
 			break;
-			case 4:
+			case 4:/*campo "strength" da struct Character*/
         		vetorPersonagens[i].strength = atoi(palavra);
         	break;
-        	case 5:
+        	case 5:/*preenche campo "intelligence" da struct Character*/
         		vetorPersonagens[i].intelligence = atoi(palavra);
         	break;
-        	case 6:
+        	case 6:/*preenche campo "health" da struct Character*/
         		vetorPersonagens[i++].health = atoi(palavra);
         	break;			
 		}
@@ -122,7 +123,7 @@ Character* character_create(char* _name, char* _house, int _agility, int _streng
 
 t_lista* CriaLista(){
 	
-	t_lista *lista = (t_lista *)malloc(sizeof(t_lista));
+	t_lista *lista = (t_lista *)malloc(sizeof(t_lista));/*aloca espaço na memória para a lista duplamente encadeada, inicialmente vazia*/
 	lista->inicio = NULL;
 	lista->fim = NULL;
 
@@ -223,20 +224,19 @@ t_node* Insere_No(t_node* root){
 	return root;
 }
 
-int i = 0;
-void Character_Transfer(t_node* root, t_lista *lista){
+void Character_Transfer(t_node* root, t_lista *lista, int i){
    	
     if(root != NULL){
-        Character_Transfer(root->left,lista);       
-        Character_Transfer(root->right,lista);
 		if(root->left == NULL || root->right == NULL){
-		   	root->character = BuscaElemento(i,lista);
-		   	i++;    
-	    }
+			root->character = BuscaPersonagem(i-16,lista);/*faz o ponteiro character da folha apontar para um personagem que é do tipo Character*/
+			i++;
+		}
+        Character_Transfer(root->left,lista, (i*2) );/*percorre ate a folha mais a esquerda da árvore*/       
+        Character_Transfer(root->right,lista, (i*2 + 1) );/*percorre ate a folha da direita*/
 	}
 }
 
-Character* BuscaElemento(int posicao, t_lista *lista){
+Character* BuscaPersonagem(int posicao, t_lista *lista){
 
 	t_elemento *aux = lista->inicio ;
 	for(int j = 0; j < posicao; j++){
@@ -248,9 +248,10 @@ Character* BuscaElemento(int posicao, t_lista *lista){
 void tree_print_preorder(t_node* root){
     
     if(root != NULL){
-        if(root->left == NULL || root->right == NULL)
+        if(root->character != NULL)
         	printf("%s\n", root->character->name);
         tree_print_preorder(root->left);
         tree_print_preorder(root->right);
     }
 }
+
